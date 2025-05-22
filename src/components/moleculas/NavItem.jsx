@@ -7,7 +7,7 @@ export const NavItem = ({ to, icon, label, className }) => {
  const isActive = location.pathname === to  // ← Compara ruta actual con la del ítem
 
  return (
-  <StyledNavItem active={isActive} className={className}>
+  <StyledNavItem $active={isActive} className={className}>
    <StyledLink to={to}>
     <Icon name={icon} />
     <NavLabel>{label}</NavLabel>
@@ -21,7 +21,7 @@ const StyledNavItem = styled.li`
   height: 70px;
   display: flex;
   justify-content: center;
-  background-color: ${(props) => (props.active ? "#1E5F8C" : "transparent")};
+  background-color: ${(props) => (props.$active ? "#1E5F8C" : "transparent")};
   
   &:hover {
     background-color: #1E5F8C;

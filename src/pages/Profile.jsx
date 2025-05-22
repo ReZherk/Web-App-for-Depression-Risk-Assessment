@@ -1,5 +1,3 @@
-"use client"
-
 import styled from "styled-components"
 import { useState } from "react"
 import { FaBars, FaBell } from "react-icons/fa"

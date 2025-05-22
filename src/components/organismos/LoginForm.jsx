@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { FormGroup } from "../moleculas/FormGroup"
-import { Input } from "../atomos/Input"
+import { Input } from "../atomos/input"
 import { Button } from "../atomos/Button"
 import { Text } from "../atomos/Typography"
 import { Icon } from "../atomos/Icon"
@@ -14,14 +14,18 @@ export const LoginForm = ({ onSubmit, className }) => {
   password: "",
  })
 
+ // React encapsula eventos nativos en SyntheticEvent y los pasa a handleChange.
  const handleChange = (e) => {
-  const { name, value } = e.target
-  setFormData({
-   ...formData,
-   [name]: value,
-  })
+  // e.target = { name: "documento", value: "Lo que escribió el usuario" }
+  const { name, value } = e.target;
+  // Sin name, no sabrías qué propiedad modificar en formData
+  //Esto dinámicamente actualiza documento o password
+  setFormData({ ...formData, [name]: value });  // Actualiza el estado
+
  }
 
+ //Lo que llega al "e" se genero automáticamente un objeto de evento nativo cuando
+ //se preciono el INGRESAR ,este viene con toda la información relevante (target, tipo, etc).
  const handleSubmit = (e) => {
   e.preventDefault()
   if (onSubmit) {
@@ -30,6 +34,9 @@ export const LoginForm = ({ onSubmit, className }) => {
  }
 
  return (
+  //onSubmit es un evento nativo de HTML, no algo que inventamos. Todos los elementos <form> de HTML tienen este evento integrado.
+  //Cuando el formulario se intente enviar (al hacer clic en el botón o presionar Enter), ejecuta la función handleSubmit que definí.
+
   <StyledForm onSubmit={handleSubmit} className={className}>
    <FormGroup>
     <Input
@@ -61,7 +68,8 @@ export const LoginForm = ({ onSubmit, className }) => {
    </FormGroup>
 
    <LoginButton type="submit">INGRESAR</LoginButton>
-
+   {/*type="submit" hace que el botón envíe un formulario al presionarlo.
+*/}
    <ForgotPassword to="/recuperar">¿Olvidaste tu contraseña?</ForgotPassword>
 
    <NoAccountText>¿Aún no tienes una cuenta?</NoAccountText>

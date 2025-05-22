@@ -1,13 +1,12 @@
-"use client"
 
 import styled from "styled-components"
 
 export const Button = ({ children, variant = "primary", type = "button", onClick, disabled, className }) => {
- return (
-  <StyledButton type={type} variant={variant} onClick={onClick} disabled={disabled} className={className}>
-   {children}
-  </StyledButton>
- )
+  return (
+    <StyledButton type={type} $variant={variant} onClick={onClick} disabled={disabled} className={className}>
+      {children}
+    </StyledButton>
+  )
 }
 
 const StyledButton = styled.button`
@@ -22,8 +21,8 @@ const StyledButton = styled.button`
   
   /* Variantes de botón */
   ${(props) =>
-  props.variant === "primary" &&
-  `
+    props.$variant === "primary" &&
+    `
     background-color: #0A3D62;
     color: white;
     
@@ -33,8 +32,8 @@ const StyledButton = styled.button`
   `}
   
   ${(props) =>
-  props.variant === "secondary" &&
-  `
+    props.$variant === "secondary" &&
+    `
     background-color: transparent;
     color: #0A3D62;
     border: 1px solid #0A3D62;
@@ -45,8 +44,8 @@ const StyledButton = styled.button`
   `}
   
   ${(props) =>
-  props.variant === "text" &&
-  `
+    props.$variant === "text" &&
+    `
     background-color: transparent;
     color: #0A3D62;
     padding: 8px 12px;

@@ -1,35 +1,17 @@
 import styled from "styled-components"
-import { Link, useLocation } from "react-router-dom"
-import { FaHome, FaUser, FaClipboardList, FaChartLine } from "react-icons/fa"
-import { Device } from "../../index"
+import { NavItem } from "../moleculas/NavItem"
+import { Avatar } from "../atomos/Avatar"
+import { Device } from "../../../styles/breakpoints"
 import cerebro from "../../assets/cerebro.svg"
-import profile from "../../assets/profile.svg";
-
-
-
-
 
 export function Sidebar() {
-  const location = useLocation()
-
-  /*
-  Ejemplo:
-  *Podria estar en :https://example.com/profile?id=42
-  
-  *Dentro de location se guardaria lo siguiente:
-     {
-       "pathname": "/profile",
-       "search": "?id=42",
-       "hash": "",
-       "state": null,
-       "key": "abcd123"
-     }
-  */
-
-  //resaltar el ítem activo:Este solo manda true o false
-  const isActive = (path) => {
-    return location.pathname === path
-  }
+  const navItems = [
+    { to: "/", icon: "home", label: "INICIO" },
+    { to: "/perfil", icon: "user", label: "PERFIL" },
+    { to: "/evaluacion", icon: "clipboard", label: "EVALUACIÓN" },
+    { to: "/resultados", icon: "chart", label: "RESULTADOS" },
+    { to: "/progreso", icon: "chart", label: "PROGRESO" },
+  ]
 
   return (
     <SidebarContainer>
@@ -39,50 +21,18 @@ export function Sidebar() {
       </LogoContainer>
 
       <UserInfo>
-        <UserAvatar>
-          <img
-            src={profile}
-            alt="Avatar"
-          />
-        </UserAvatar>
+        <Avatar
+          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-e0OrIjAJrfy8IWMdYlsb2LupD2Egw6.png"
+          alt="Avatar"
+          size="large"
+        />
         <UserName>MARIO ARMAS</UserName>
       </UserInfo>
 
       <NavMenu>
-        <NavItem active={isActive("/")}>
-          <StyledLink to="/">
-            <FaHome />
-            <span>INICIO</span>
-          </StyledLink>
-        </NavItem>
-
-        <NavItem active={isActive("/perfil")}>
-          <StyledLink to="/perfil">
-            <FaUser />
-            <span>PERFIL</span>
-          </StyledLink>
-        </NavItem>
-
-        <NavItem active={isActive("/evaluacion")}>
-          <StyledLink to="/evaluacion">
-            <FaClipboardList />
-            <span>EVALUACIÓN</span>
-          </StyledLink>
-        </NavItem>
-
-        <NavItem active={isActive("/resultados")}>
-          <StyledLink to="/resultados">
-            <FaChartLine />
-            <span>RESULTADOS</span>
-          </StyledLink>
-        </NavItem>
-
-        <NavItem active={isActive("/progreso")}>
-          <StyledLink to="/progreso">
-            <FaChartLine />
-            <span>PROGRESO</span>
-          </StyledLink>
-        </NavItem>
+        {navItems.map((item) => (
+          <NavItem key={item.to} to={item.to} icon={item.icon} label={item.label} />
+        ))}
       </NavMenu>
     </SidebarContainer>
   )
@@ -99,11 +49,7 @@ const SidebarContainer = styled.div`
   left: 0;
   top: 0;
   
-  @media ${Device.tablet} {
-    max-width: 80%;
-    margin: 0 auto;
-
-  }
+  
 `
 
 const LogoContainer = styled.div`
@@ -132,25 +78,12 @@ const UserInfo = styled.div`
   margin-bottom: 20px;
 `
 
-const UserAvatar = styled.div`
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-bottom: 10px;
-  
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`
-
 const UserName = styled.span`
   font-size: 10px;
   color: white;
   text-align: center;
   font-weight: 600;
+  margin-top: 10px;
 `
 
 const NavMenu = styled.ul`
@@ -158,37 +91,4 @@ const NavMenu = styled.ul`
   padding: 0;
   margin: 0;
   width: 100%;
-`
-
-const NavItem = styled.li`
-  width: 100%;
-  height: 70px;
-  display: flex;
-  justify-content: center;
-  background-color: ${(props) => (props.active ? "#1E5F8C" : "transparent")};
-  
-  &:hover {
-    background-color: #1E5F8C;
-  }
-`
-
-const StyledLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: white;
-  
-  svg {
-    font-size: 20px;
-    margin-bottom: 5px;
-  }
-  
-  span {
-    font-size: 10px;
-    text-transform: uppercase;
-  }
 `
